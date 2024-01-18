@@ -20,7 +20,7 @@ func main() {
 	}
 
 	// Démarrer le serveur avec le support TLS
-	err := server.ListenAndServeTLS("./certificat.pem", "./cle-privée.pem")
+	err := server.ListenAndServeTLS("./wedreamteam.com.pem", "./wedreamteam.com.key")
 	if err != nil {
 		log.Fatal("Erreur lors du démarrage du serveur TLS : ", err)
 	}
