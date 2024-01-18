@@ -15,7 +15,7 @@ jobs:
     steps:
     # - uses: actions/checkout@v3
 
-    - name: insatall acme
+    - name: install acme
       run: |
         git clone https://github.com/acmesh-official/acme.sh.git
         cd ./acme.sh
