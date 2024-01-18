@@ -35,7 +35,7 @@ jobs:
       run: cd $GITHUB_WORKSPACE &&  docker build . --file Dockerfile --tag tls:$(date +%s)
 
     - name: ecr login  
-      uses: docker://ghcr.io/kciter/aws-ecr-action:latest
+      uses: kciter/aws-ecr-action@v4
       with:
         access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
