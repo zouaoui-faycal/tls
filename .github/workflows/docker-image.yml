@@ -15,7 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-
     - name: install acme
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -34,19 +33,19 @@ jobs:
       
     - name: Build the Docker image
       run: cd $GITHUB_WORKSPACE &&  docker build . --file Dockerfile --tag tls:$(date +%s)
-    
-    - name: 'Get Login to AWS ECR'
-      id: ecr-login
-      uses: thalesvon/ecr-login@master
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_DEFAULT_OUTPUT: json
-        AWS_REGION: eu-west-3
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: ecr login  
+      uses: docker://ghcr.io/kciter/aws-ecr-action:latest
       with:
-        args: 'get-login --no-include-email --region ${AWS_REGION}'
-    - name: 'Docker Login'
-      run: ${{ steps. ecr-login.outputs.login-string }}
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+        repo: tls
+        region: eu-west-3
+        tags: latest,${{ github.sha }}
+        create_repo: false
+        image_scanning_configuration: false
+        set_repo_policy: false
 
     - name: push to ecr 
       run: |
