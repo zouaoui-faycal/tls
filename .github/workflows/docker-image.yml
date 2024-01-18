@@ -13,10 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    # - uses: actions/checkout@v3
 
     - name: insatall acme
-      run: curl https://get.acme.sh | sh -s zouaoui.faycal.p@gmail.com
+      run: |
+        git clone https://github.com/acmesh-official/acme.sh.git
+        cd ./acme.sh
+        ./acme.sh --install -m zouaoui.faycal.p@gmail.com
 
       
     # - name: Build the Docker image
