@@ -20,7 +20,7 @@ jobs:
         git clone https://github.com/acmesh-official/acme.sh.git
         cd ./acme.sh
         ./acme.sh --install -m zouaoui.faycal.p@gmail.com
-        acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
+        /home/runner/.acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
 
       
     # - name: Build the Docker image
