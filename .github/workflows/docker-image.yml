@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
 
     - name: install acme
@@ -31,5 +31,5 @@ jobs:
         pwd
 
       
-    # - name: Build the Docker image
-    #   run: docker build . --file Dockerfile --tag tls:$(date +%s)
+    - name: Build the Docker image
+      run: cd $GITHUB_WORKSPACE &&  docker build . --file Dockerfile --tag tls:$(date +%s)
