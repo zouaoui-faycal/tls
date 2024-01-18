@@ -25,9 +25,9 @@ jobs:
         cd ./acme.sh
         ./acme.sh --install -m zouaoui.faycal.p@gmail.com
         env
-        /home/runner/.acme.sh/acme.sh --issue  -d tls.wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
-        cp /home/runner/.acme.sh/tls.wedreamteam.com/tls.wedreamteam.com.cer tls.wedreamteam.com.pem
-        cp /home/runner/.acme.sh/tls.wedreamteam.com/tls.wedreamteam.com.key .
+        /home/runner/.acme.sh/acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
+        cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
+        cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
         pwd
 
       
