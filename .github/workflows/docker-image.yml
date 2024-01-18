@@ -17,18 +17,19 @@ jobs:
 
 
     - name: install acme
-      env: # Or as an environment variable
+      env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}    
       run: |
-        git clone https://github.com/acmesh-official/acme.sh.git
-        cd ./acme.sh
-        ./acme.sh --install -m zouaoui.faycal.p@gmail.com
-        env
-        /home/runner/.acme.sh/acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
-        cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
-        cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
-        pwd
+        # git clone https://github.com/acmesh-official/acme.sh.git
+        # cd ./acme.sh
+        # ./acme.sh --install -m zouaoui.faycal.p@gmail.com
+        # env
+        # /home/runner/.acme.sh/acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
+        # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
+        # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
+        openssl req -newkey rsa:2048 -nodes -keyout wedreamteam.com.key -x509 -days 365 -out wedreamteam.com.pem
+
 
       
     - name: Build the Docker image
