@@ -9,8 +9,9 @@ on:
 jobs:
   generate_certificate:
     runs-on: ubuntu-latest
-    volumes:
-      - /tmp:/cert
+    container:
+      volumes:
+        - /tmp:/cert
     steps:
     - name: checkout  
       uses: actions/checkout@v3      
