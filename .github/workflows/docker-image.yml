@@ -48,7 +48,7 @@ jobs:
         set_repo_policy: false
 
     - name: restart task   
-      run: aws ecs  update-service --cluster tls --service tls-svc --force-new-deployment
+      run: aws s3 ls #ecs  update-service --cluster tls --service tls-svc --force-new-deployment
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
