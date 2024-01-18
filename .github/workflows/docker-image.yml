@@ -32,10 +32,9 @@ jobs:
     runs-on: ubuntu-latest  
     needs: generate_certificate
     steps:
-    - uses: actions/checkout@v3
 
     - name: Build the Docker image
-      run: cd $GITHUB_WORKSPACE &&  docker build . --file Dockerfile --tag tls:$(date +%s)
+      run: ls &&  docker build . --file Dockerfile --tag tls:$(date +%s)
 
     # - name: ecr login  
     #   uses: kciter/aws-ecr-action@v4
