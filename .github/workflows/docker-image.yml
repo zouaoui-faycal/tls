@@ -10,6 +10,9 @@ jobs:
   generate_certificate:
     runs-on: ubuntu-latest
     steps:
+    - name: checkout  
+      uses: actions/checkout@v3      
+      
     - name: install acme
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
