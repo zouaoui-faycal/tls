@@ -17,8 +17,8 @@ WORKDIR /app
 COPY --from=builder /app/monapp .
 
 # Copiez également les fichiers de certificat TLS (remplacez les chemins si nécessaire)
-COPY wedreamteam.com.pem .
-COPY wedreamteam.com.key .
+COPY tls.wedreamteam.com.pem .
+COPY tls.wedreamteam.com.key .
 RUN chmod +x monapp
 
 # Exposez le port sécurisé de l'application
