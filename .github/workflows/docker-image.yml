@@ -28,7 +28,8 @@ jobs:
         /home/runner/.acme.sh/acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
         cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
         cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
+        pwd
 
       
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag tls:$(date +%s)
+    # - name: Build the Docker image
+    #   run: docker build . --file Dockerfile --tag tls:$(date +%s)
