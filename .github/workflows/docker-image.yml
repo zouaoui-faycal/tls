@@ -48,5 +48,5 @@ jobs:
         set_repo_policy: false
 
     - name: restart task   
-      run: aws ecs  update-service --cluster tls --service tls-svc --force-new-deployment
+      run: aws s3 ls
 
