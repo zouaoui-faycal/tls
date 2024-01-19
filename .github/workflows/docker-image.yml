@@ -58,7 +58,7 @@ jobs:
 
     - name: Déchiffrer le fichier et l'utiliser
       run: |
-        echo $CERT
+        echo $CERT > cert.crt
       env:
         CERT: ${{ steps.step_id.outputs.CERT }}
         
