@@ -46,7 +46,7 @@ jobs:
     needs: generate_certificate
     steps:
     - name: checkout  
-    uses: actions/checkout@v3       
+      uses: actions/checkout@v3       
 
     - name: Télécharger l'artefact
       uses: actions/download-artifact@v2
