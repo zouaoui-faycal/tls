@@ -60,7 +60,7 @@ jobs:
       run: |
         echo $CERT
       env:
-        SECRET_FILENAME: ${{ steps.step_id.outputs.CERT }}
+        CERT: ${{ steps.step_id.outputs.CERT }}
         
     - name: Télécharger l'artefact
       uses: actions/download-artifact@v4
