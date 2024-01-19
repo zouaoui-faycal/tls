@@ -21,7 +21,7 @@ jobs:
       uses: actions/checkout@v3   
 
     - name: 
-      use: ./.github/workflows/certificate.yml
+      uses: ./.github/workflows/certificate.yml
 
     - name: Build the Docker image
       run: ls &&  docker build . --file Dockerfile --tag tls:$(date +%s)
