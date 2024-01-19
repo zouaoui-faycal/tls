@@ -77,6 +77,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest  
+    steps:
     - name: restart task   
       run: aws --version #ecs  update-service --cluster tls --service tls-svc --force-new-deployment
       env:
