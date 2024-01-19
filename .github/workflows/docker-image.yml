@@ -9,10 +9,6 @@ on:
 jobs:
   generate_certificate:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
-      volumes:
-        - /tmp:/cert
     steps:
     - name: checkout  
       uses: actions/checkout@v3      
@@ -30,13 +26,35 @@ jobs:
         # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
         # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
         openssl req -config cert.conf -newkey rsa:2048 -nodes -keyout wedreamteam.com.key -x509 -days 365 -out wedreamteam.com.pem
-        ls /cert
+        cat wedreamteam.com.key > wedreamteam.com.key
+        cat wedreamteam.com.pem > wedreamteam.com.pem
 
+    - name: Archiver le fichier de sortie
+      uses: actions/upload-artifact@v2
+      with:
+        name: cert
+        path: wedreamteam.com.key
+    
+    - name: Archiver le fichier de sortie
+      uses: actions/upload-artifact@v2
+      with:
+        name: key
+        path: wedreamteam.com.pem          
 
   build:
     runs-on: ubuntu-latest  
     needs: generate_certificate
     steps:
+
+    - name: Télécharger l'artefact
+      uses: actions/download-artifact@v2
+      with:
+        name: cert      
+    
+    - name: Télécharger l'artefact
+      uses: actions/download-artifact@v2
+      with:
+        name: key   
 
     - name: Build the Docker image
       run: ls &&  docker build . --file Dockerfile --tag tls:$(date +%s)
