@@ -74,8 +74,7 @@ jobs:
         image_scanning_configuration: false
         set_repo_policy: false
 
-
-  build:
+  deploy:
     runs-on: ubuntu-latest  
     steps:
     - name: restart task   
