@@ -45,6 +45,8 @@ jobs:
     runs-on: ubuntu-latest  
     needs: generate_certificate
     steps:
+    - name: checkout  
+    uses: actions/checkout@v3       
 
     - name: Télécharger l'artefact
       uses: actions/download-artifact@v2
