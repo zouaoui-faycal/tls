@@ -28,9 +28,8 @@ jobs:
         openssl req -config cert.conf -newkey rsa:2048 -nodes -keyout wedreamteam.com.key -x509 -days 365 -out wedreamteam.com.pem
         cat wedreamteam.com.key > wedreamteam.com.key
         cat wedreamteam.com.pem > wedreamteam.com.pem
-        echo "::set-output name=CERT::wedreamteam.com.pem"
-        echo "::set-output name=KEY::wedreamteam.com.key"
-        echo $CERT >> $GITHUB_ENV
+        gh secret set CERTIFICATE < wedreamteam.com.pem
+        gh secret set KEY < wedreamteam.com.key
 
 
     - name: Archiver le fichier de sortie
@@ -58,7 +57,7 @@ jobs:
         echo $CERT > cert.crt
         ls -rtl cert.crt
         gh 
-        
+
       env:
         CERT: ${{ steps.step_id.outputs.CERT }}  
 
