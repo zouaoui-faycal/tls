@@ -1,0 +1,30 @@
+
+name: Reusable workflow example
+
+on:
+  workflow_call:
+    inputs:
+      domain:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  generate_certificate:
+    runs-on: ubuntu-latest
+    steps:      
+    
+    - name: install acme
+    run: |
+        # git clone https://github.com/acmesh-official/acme.sh.git
+        # cd ./acme.sh
+        # ./acme.sh --install -m zouaoui.faycal.p@gmail.com
+        # env
+        # /home/runner/.acme.sh/acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
+        # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
+        # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
+        openssl req -config cert.conf -newkey rsa:2048 -nodes -keyout wedreamteam.com.key -x509 -days 365 -out wedreamteam.com.pem
+        gh variable set CERTIFICATE < wedreamteam.com.pem
+        gh variable set KEY < wedreamteam.com.key  

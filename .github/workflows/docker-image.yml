@@ -11,45 +11,17 @@ env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }} 
   AWS_REGION: "eu-west-3"
 
-jobs:
-  generate_certificate:
-    runs-on: ubuntu-latest
-    if: ${{ contains(github.event.head_commit.message, 'certificate') }}
-    steps:
-    - name: checkout  
-      uses: actions/checkout@v3      
-      
-    - name: install acme
-      run: |
-        # git clone https://github.com/acmesh-official/acme.sh.git
-        # cd ./acme.sh
-        # ./acme.sh --install -m zouaoui.faycal.p@gmail.com
-        # env
-        # /home/runner/.acme.sh/acme.sh --issue  -d wedreamteam.com  --dns dns_aws --keylength 4096 --server letsencrypt
-        # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
-        # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
-        openssl req -config cert.conf -newkey rsa:2048 -nodes -keyout wedreamteam.com.key -x509 -days 365 -out wedreamteam.com.pem
-        gh variable set CERTIFICATE < wedreamteam.com.pem
-        gh variable set KEY < wedreamteam.com.key     
-
+jobs:   
   build:
     runs-on: ubuntu-latest  
     if: ${{ contains(github.event.head_commit.message, 'build') }}
     needs: generate_certificate
-    if: always()
     steps:
     - name: checkout  
       uses: actions/checkout@v3   
 
-    - name: Get certificate from Gen-cert Job 
-      env: 
-        CERTIFICATE: ${{ env.CERTIFICATE }} 
-        KEY: ${{ env.KEY }} 
-      run: |
-        env
-        echo $CERTIFICATE >> wedreamteam.com.pem
-        echo $KEY >> wedreamteam.com.key
-        ls -rtl
+    - name: 
+      use: ./.github/workflows/certificate.yml
 
     - name: Build the Docker image
       run: ls &&  docker build . --file Dockerfile --tag tls:$(date +%s)
@@ -69,7 +41,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest  
-    if: always()
+    if: ${{ contains(github.event.head_commit.message, 'deploy') }}
     needs: build
     steps:
     - name: restart task   
