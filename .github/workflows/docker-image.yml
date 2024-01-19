@@ -69,7 +69,7 @@ jobs:
     needs: build
     steps:
     - name: restart task   
-      run: aws --version #ecs  update-service --cluster tls --service tls-svc --force-new-deployment
+      run: aws ecs  update-service --cluster tls --service tls-svc --force-new-deployment
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
