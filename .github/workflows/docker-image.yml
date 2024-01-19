@@ -8,6 +8,7 @@ on:
 
 jobs:
   generate_certificate:
+    if: ${{ contains(github.event.head_commit.message, 'generate a new certificate') }}
 
     runs-on: ubuntu-latest
     steps:
@@ -61,7 +62,7 @@ jobs:
         account_id: ${{ secrets.AWS_ACCOUNT_ID }}
         repo: tls
         region: eu-west-3
-        tags: latest,${{ github.sha }}
+        tags: latest
         create_repo: true
         image_scanning_configuration: false
         set_repo_policy: false
