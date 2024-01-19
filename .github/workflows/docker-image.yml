@@ -8,8 +8,6 @@ on:
 
 jobs:
   generate_certificate:
-    if: ${{ contains(github.event.head_commit.message, 'generate a new certificate') }}
-
     runs-on: ubuntu-latest
     steps:
     - name: checkout  
@@ -34,7 +32,6 @@ jobs:
         gh secret set KEY < wedreamteam.com.key     
 
   build:
-    if: ${{ contains(github.event.head_commit.message, 'build') }}
     runs-on: ubuntu-latest  
     steps:
     - name: checkout  
@@ -45,8 +42,8 @@ jobs:
         CERTIFICATE: ${{ secrets.CERTIFICATE }} 
         KEY: ${{ secrets.KEY }} 
       run: |
-        echo $CERTIFICATE > wedreamteam.com.pem
-        echo $KEY > wedreamteam.com.key
+        echo $CERTIFICATE 
+        echo $KEY 
         ls -rtl
 
     - name: Build the Docker image
