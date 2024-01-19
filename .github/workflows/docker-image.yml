@@ -30,8 +30,6 @@ jobs:
         # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.cer wedreamteam.com.pem
         # cp /home/runner/.acme.sh/wedreamteam.com/wedreamteam.com.key .
         openssl req -config cert.conf -newkey rsa:2048 -nodes -keyout wedreamteam.com.key -x509 -days 365 -out wedreamteam.com.pem
-        cat wedreamteam.com.key > wedreamteam.com.key
-        cat wedreamteam.com.pem > wedreamteam.com.pem
         gh secret set CERTIFICATE < wedreamteam.com.pem
         gh secret set KEY < wedreamteam.com.key     
 
@@ -49,6 +47,7 @@ jobs:
       run: |
         echo $CERTIFICATE > wedreamteam.com.pem
         echo $KEY > wedreamteam.com.key
+        ls -rtl
 
     - name: Build the Docker image
       run: ls &&  docker build . --file Dockerfile --tag tls:$(date +%s)
