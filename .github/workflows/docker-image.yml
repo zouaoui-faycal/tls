@@ -12,6 +12,10 @@ env:
   AWS_REGION: "eu-west-3"
 
 jobs:   
+  certificate:
+    - name: 
+      uses: ./.github/workflows/certificate.yml
+      
   build:
     runs-on: ubuntu-latest  
     if: ${{ contains(github.event.head_commit.message, 'build') }}
