@@ -14,7 +14,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest  
-    if: ${{ contains(github.event.head_commit.message, 'build') }}
     steps:
 
     - name: checkout  
@@ -50,7 +49,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest  
-    if: always()
     needs: build
     steps:
     - name: restart task   
