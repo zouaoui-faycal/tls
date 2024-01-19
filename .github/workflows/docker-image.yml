@@ -30,19 +30,16 @@ jobs:
         cat wedreamteam.com.pem > wedreamteam.com.pem
         echo "::set-output name=CERT::wedreamteam.com.pem"
         echo "::set-output name=KEY::wedreamteam.com.key"
+        echo $CERT >> $GITHUB_ENV
 
 
     - name: Archiver le fichier de sortie
       uses: actions/upload-artifact@v4
       with:
-        name: cert
-        path: wedreamteam.com.key
-    
-    - name: Archiver le fichier de sortie
-      uses: actions/upload-artifact@v4
-      with:
-        name: key
-        path: wedreamteam.com.pem          
+        name: certificates
+        path: |
+          wedreamteam.com.key
+          wedreamteam.com.pem       
 
   build:
     runs-on: ubuntu-latest  
@@ -54,18 +51,13 @@ jobs:
     - name: Télécharger l'artefact
       uses: actions/download-artifact@v4
       with:
-        name: cert      
+        name: certificates      
 
     - name: Déchiffrer le fichier et l'utiliser
       run: |
         echo $CERT > cert.crt
       env:
-        CERT: ${{ steps.step_id.outputs.CERT }}
-        
-    - name: Télécharger l'artefact
-      uses: actions/download-artifact@v4
-      with:
-        name: key   
+        CERT: ${{ steps.step_id.outputs.CERT }}  
 
     - name: Build the Docker image
       run: ls &&  docker build . --file Dockerfile --tag tls:$(date +%s)
