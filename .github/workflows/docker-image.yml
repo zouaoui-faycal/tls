@@ -17,7 +17,8 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  
-        GH_TOKEN: ${{ github.token }}  
+        GH_TOKEN: ${{ secrets.GH_TOKEN }} 
+
       run: |
         # git clone https://github.com/acmesh-official/acme.sh.git
         # cd ./acme.sh
