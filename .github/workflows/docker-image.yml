@@ -76,4 +76,5 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' 
     steps:
-      run: aws ecs stop-task --cluster tls  --task $(aws ecs list-tasks --cluster tls | jq -r '.taskArns[0]')
+      - name: create a record dns 
+        run: aws ecs stop-task --cluster tls  --task $(aws ecs list-tasks --cluster tls | jq -r '.taskArns[0]')
