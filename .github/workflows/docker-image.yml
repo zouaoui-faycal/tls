@@ -32,9 +32,11 @@ jobs:
         # openssl req -config cert.conf -newkey rsa:2048 -nodes -keyout wedreamteam.com.key -x509 -days 365 -out wedreamteam.com.pem
 
     - name: Build the Docker image
+      if: ${{ contains(github.event.head_commit.message, 'build') }}
       run: cd $GITHUB_WORKSPACE &&  docker build . --file Dockerfile --tag tls:$(date +%s)
 
     - name: ecr login  
+      if: ${{ contains(github.event.head_commit.message, 'build') }}
       uses: kciter/aws-ecr-action@v4
       with:
         access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -55,3 +57,10 @@ jobs:
       run: aws ecs  update-service --cluster tls --service tls-svc --force-new-deployment
       env:
         AWS_EC2_METADATA_DISABLED: true
+
+  record_dns:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps: 
+      - name: create a record dns 
+        run: sleep 300 && ./recod.sh        
