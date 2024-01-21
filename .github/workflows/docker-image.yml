@@ -68,4 +68,4 @@ jobs:
       - name: checkout  
         uses: actions/checkout@v3         
       - name: create a record dns 
-        run: sleep 120 && ./record.sh        
+        run: sleep 120 && chmod 700 record.sh && ./record.sh        
