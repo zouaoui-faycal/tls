@@ -1,6 +1,6 @@
-name: Docker Image CI
-
+name: build ${{ inputs.env }}
 on:
+  workflow_dispatch:
   push:
     branches: [ "main" ]
   pull_request:
@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-  build:
+  build: 
     runs-on: ubuntu-latest  
     steps:
     
