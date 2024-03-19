@@ -42,7 +42,7 @@ jobs:
 
   deploy-production:
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published' && github.ref_name == 'refs/tags/v*'
+    if: github.event_name == 'release' 
 
     steps:
     - name: Deploy to Production
