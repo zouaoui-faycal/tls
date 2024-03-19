@@ -29,6 +29,4 @@ jobs:
       - name: build docker image    
         run: |
             docker build -t ghcr.io/zouaoui-faycal/app:latest .
-            echo $GITLAB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
-            docker push ghcr.io/zouaoui-faycal/app:latest
-          
+            docker image ls
