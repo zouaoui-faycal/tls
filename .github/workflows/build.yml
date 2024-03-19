@@ -32,7 +32,7 @@ jobs:
   deploy-pre-production:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
+    if: github.event.release.prerelease == true
 
     steps:
     - name: Deploy to Pre-production
