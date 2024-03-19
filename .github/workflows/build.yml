@@ -41,7 +41,6 @@ jobs:
         echo "Deployment script for pre-production (ppd)"
 
   deploy-production:
-    needs: deploy-pre-production
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && github.ref_name == 'refs/tags/v*'
 
