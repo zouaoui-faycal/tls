@@ -4,7 +4,12 @@ on:
   push:
     branches:
       - main
-
+  pull_request:
+    branches:
+      - main
+  release:
+    types: [prereleased]
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +21,7 @@ jobs:
   deploy-integration-and-staging:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
 
     steps:
     - name: Deploy to Integration and Staging
