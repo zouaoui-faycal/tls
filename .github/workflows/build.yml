@@ -15,17 +15,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Build Docker image
-      run: docker build -t your_image_name .
-
-    - name: Login to Docker Hub
-      run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-
-    - name: Push Docker image to Docker Hub
-      run: docker push your_image_name
+    - name: build
+      run: echo "build"
 
   deploy-integration-and-staging:
     needs: build
@@ -33,12 +24,10 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Deploy to Integration and Staging
       run: |
         # Deployment scripts for integration (int) and staging (stg)
+        echo "Deploy to Integration and Staging"
 
   deploy-pre-production:
     needs: build
@@ -46,12 +35,10 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published'
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Deploy to Pre-production
       run: |
         # Deployment script for pre-production (ppd)
+        echo "Deployment script for pre-production (ppd)"
 
   deploy-production:
     needs: deploy-pre-production
@@ -59,9 +46,7 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published' && github.ref == 'refs/tags/v*'
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Deploy to Production
       run: |
         # Deployment script for production (prd)
+        echo "Deployment script for production (prd)"
