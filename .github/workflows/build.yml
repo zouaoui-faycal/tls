@@ -1,18 +1,34 @@
-name: build ${{ inputs.env }}
+name: my app CICD
 on:
-  workflow_dispatch:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  
+
+
+    ### set your variables 
+
+env: 
+  TAG: "1.1.0"
+  IMAGE-NAME: "myapplication"
+  BUILD-ARGS: ""
+  REGISTRY: ghcr.io
 
 
 jobs:
-  build: 
-    runs-on: ubuntu-latest  
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      id-token: write
+      contents: read
+      actions: write
+      packages: write
+
     steps:
-    
-    - name: install acme
-      run: echo teest
-    
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: build docker image    
+        run: |
+            docker build -t ghcr.io/zouaoui-faycal/app:latest .
+            echo $GITLAB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
+            docker push ghcr.io/zouaoui-faycal/app:latest
+          
