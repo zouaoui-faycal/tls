@@ -8,7 +8,7 @@ on:
     branches:
       - main
   release:
-    types: [prereleased]
+    types: [prereleased,published]
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
   deploy-production:
     needs: deploy-pre-production
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published' && github.ref == 'refs/tags/v*'
+    if: github.event_name == 'release' && github.event.action == 'published' && github.ref_name == 'refs/tags/v*'
 
     steps:
     - name: Deploy to Production
