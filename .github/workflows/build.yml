@@ -57,7 +57,6 @@ jobs:
     permissions:
       contents: write    
     steps:
-    
     - name: Deploy to Production
       run: echo "RELEASE"
       
@@ -67,7 +66,8 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v2
       if: github.event.release.prerelease == true
-        
+      with:
+        prerelease: false
         
   deploy-production:
     runs-on: ubuntu-latest
