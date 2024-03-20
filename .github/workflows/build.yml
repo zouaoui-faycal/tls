@@ -27,7 +27,9 @@ jobs:
       run: echo "trivy"
       
   deploy-integration-and-staging:
-    needs: build
+    needs: 
+      - build
+      - trivy    
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
 
@@ -38,7 +40,9 @@ jobs:
         echo "Deploy to Integration and Staging"
 
   deploy-pre-production:
-    needs: build
+    needs: 
+      - build
+      - trivy
     runs-on: ubuntu-latest
     if: github.event.release.prerelease == true
 
