@@ -53,7 +53,6 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'released'
     needs: deploy-pre-production
     steps:
     
@@ -66,7 +65,7 @@ jobs:
     - name: Release 
       uses: dsaltares/fetch-gh-release-asset@master
       with:
-        version: 'tags/v1.0.1'
+        version: 'tags/v1.0.2'
         file: 'test-app.zip'
         token: ${{ secrets.GITHUB_TOKEN }}   
         
