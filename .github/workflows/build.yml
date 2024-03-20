@@ -42,7 +42,6 @@ jobs:
   deploy-pre-production:
     needs: 
       - build
-      - trivy
     runs-on: ubuntu-latest
     if: github.event.release.prerelease == true
 
