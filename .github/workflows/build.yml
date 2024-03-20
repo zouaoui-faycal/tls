@@ -71,7 +71,6 @@ jobs:
         
   deploy-production:
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'released'
     needs: release
     steps:
     - name: Deploy to Production
