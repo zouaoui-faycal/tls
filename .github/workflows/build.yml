@@ -51,10 +51,20 @@ jobs:
         # Deployment script for pre-production (ppd)
         echo "Deployment script for pre-production (ppd)"
 
+  release:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'released'
+    needs: deploy-pre-production
+    steps:
+    - name: Deploy to Production
+      run: |
+        # Deployment script for production (prd)
+        echo "Deployment script for production (prd)"
+        
   deploy-production:
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'released'
-
+    needs: release
     steps:
     - name: Deploy to Production
       run: |
