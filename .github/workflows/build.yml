@@ -56,10 +56,20 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'released'
     needs: deploy-pre-production
     steps:
+    
     - name: Deploy to Production
-      run: |
-        # Deployment script for production (prd)
-        echo "Deployment script for production (prd)"
+      run: echo "RELEASE"
+      
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Release 
+      uses: dsaltares/fetch-gh-release-asset@master
+      with:
+        version: 'tags/v1.0.1'
+        file: 'test-app.zip'
+        token: ${{ secrets.GITHUB_TOKEN }}   
+        
         
   deploy-production:
     runs-on: ubuntu-latest
