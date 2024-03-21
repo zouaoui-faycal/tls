@@ -3,7 +3,7 @@ name: Docker Build & Deploy
 on:
   push:
     branches:
-      - hotfix/**
+      - hotfix/*
       - main
   pull_request:
     branches:
@@ -22,7 +22,7 @@ jobs:
   trivy:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'pull_request' || github.event_name == 'push' && github.ref == 'refs/heads/hotfix/**'
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/hotfix/')))
     steps:
     - name: trivy
       run: echo "trivy"
