@@ -3,78 +3,19 @@ name: Docker Build & Deploy
 on:
   push:
     branches:
-      - hotfix/*
       - main
-  pull_request:
-    branches:
-      - main
-  release:
-    types: [prereleased,released]
+
+
     
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-13
 
     steps:
     - name: build
       run: echo "build"
-      
-  trivy:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
-    steps:
-    - name: trivy
-      run: echo "trivy"
-      
-  deploy-integration-and-staging:
-    needs: 
-      - build
-      - trivy    
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
-
-    steps:
-    - name: Deploy to Integration and Staging
-      run: |
-        # Deployment scripts for integration (int) and staging (stg)
-        echo "Deploy to Integration and Staging"
-
-  deploy-pre-production:
-    needs: 
-      - build
-    runs-on: ubuntu-latest
-    if: github.event.release.prerelease == true
-
-    steps:
-    - name: Deploy to Pre-production
-      run: |
-        # Deployment script for pre-production (ppd)
-        echo "Deployment script for pre-production (ppd)"
-
-  release:
-    runs-on: ubuntu-latest
-    needs: deploy-pre-production
-    permissions:
-      contents: write    
-    steps:
-    - name: Deploy to Production
-      run: echo "RELEASE"
-      
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Release
-      uses: softprops/action-gh-release@v2
-      if: github.event.release.prerelease == true
-      with:
-        prerelease: false
+    - name: Setup Docker on macOS
+      uses: douglascamata/setup-docker-macos-action@v1-alpha
+    - name: check
+      run: docker version
         
-  deploy-production:
-    runs-on: ubuntu-latest
-    needs: release
-    steps:
-    - name: Deploy to Production
-      run: |
-        # Deployment script for production (prd)
-        echo "Deployment script for production (prd)"
